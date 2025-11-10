@@ -9,7 +9,7 @@ export async function GET() {
     });
     // If empty, seed default methods and refetch
     if (!data || data.length === 0) {
-      const defaults = ["Efectivo", "Crédito"];
+      const defaults = ["Contado", "Crédito"];
       await prisma.$transaction(
         defaults.map((name) =>
           prisma.paymentMethod.upsert({

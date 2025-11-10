@@ -87,10 +87,12 @@ export default function POSPage() {
       if (!response.ok) throw new Error("Failed to fetch payment methods");
       const data = await response.json();
       setPaymentMethods(data);
-      // Autoseleccionar efectivo si existe
+      // Autoseleccionar 'Contado' si existe; en su defecto 'Efectivo/Cash'
       if (!paymentMethod && Array.isArray(data)) {
-        const cash = data.find((pm: PaymentMethod) => pm.name?.toLowerCase().includes('cash') || pm.name?.toLowerCase().includes('efectivo'));
-        if (cash) setPaymentMethod(cash);
+        const contado = data.find((pm: PaymentMethod) => pm.name?.toLowerCase().includes('contado'));
+        const cash = data.find((pm: PaymentMethod) => pm.name?.toLowerCase().includes('efectivo') || pm.name?.toLowerCase().includes('cash'));
+        if (contado) setPaymentMethod(contado);
+        else if (cash) setPaymentMethod(cash);
       }
     } catch (error) {
       console.error("Error fetching payment methods:", error);
