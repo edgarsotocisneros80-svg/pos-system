@@ -30,6 +30,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import {
@@ -391,6 +392,11 @@ export default function CustomersPage() {
             <DialogTitle>
               {showNewCustomerDialog ? "Crear cliente" : "Editar cliente"}
             </DialogTitle>
+            <DialogDescription>
+              {showNewCustomerDialog
+                ? "Completa los datos para crear un nuevo cliente."
+                : "Actualiza los datos del cliente seleccionado."}
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -467,8 +473,10 @@ export default function CustomersPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Confirmar eliminación</DialogTitle>
+            <DialogDescription>
+              ¿Seguro que deseas eliminar este cliente? Esta acción no se puede deshacer.
+            </DialogDescription>
           </DialogHeader>
-          ¿Seguro que deseas eliminar este cliente? Esta acción no se puede deshacer.
           <DialogFooter>
             <Button
               variant="secondary"
