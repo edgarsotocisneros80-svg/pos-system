@@ -157,23 +157,23 @@ export default function Cashier() {
     <>
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Cashier Transactions</CardTitle>
-          <CardDescription>Manage your cashier transactions.</CardDescription>
+          <CardTitle>Transacciones de caja</CardTitle>
+          <CardDescription>Gestiona tus transacciones de caja.</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>ID</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>Descripción</TableHead>
+                <TableHead>Categoría</TableHead>
+                <TableHead>Tipo</TableHead>
+                <TableHead>Fecha</TableHead>
+                <TableHead>Monto</TableHead>
+                <TableHead>Estado</TableHead>
                 <TableHead></TableHead>
                 <TableHead>
-                  <span className="sr-only">Actions</span>
+                  <span className="sr-only">Acciones</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -184,7 +184,9 @@ export default function Cashier() {
                   <TableCell>{transaction.description}</TableCell>
                   <TableCell>{transaction.category}</TableCell>
                   <TableCell>
-                    <Badge variant={transaction.type}>{transaction.type}</Badge>
+                    <Badge variant={transaction.type}>
+                      {transaction.type === "income" ? "Ingreso" : "Gasto"}
+                    </Badge>
                   </TableCell>
                   <TableCell>{formatDate(transaction.created_at)}</TableCell>
                   <TableCell>${transaction.amount.toFixed(2)}</TableCell>
@@ -196,7 +198,7 @@ export default function Cashier() {
                           : "secondary"
                       }
                     >
-                      {transaction.status}
+                      {transaction.status === "completed" ? "Completado" : "Pendiente"}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -208,18 +210,18 @@ export default function Cashier() {
                           variant="ghost"
                         >
                           <EllipsisVerticalIcon className="h-4 w-4" />
-                          <span className="sr-only">Toggle menu</span>
+                          <span className="sr-only">Abrir menú</span>
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem>Editar</DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => {
                             setTransactionToDelete(transaction);
                             setIsDeleteConfirmationOpen(true);
                           }}
                         >
-                          Delete
+                          Eliminar
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -227,13 +229,13 @@ export default function Cashier() {
                 </TableRow>
               ))}
               <TableRow>
-                <TableCell>New</TableCell>
+                <TableCell>Nuevo</TableCell>
                 <TableCell>
                   <Input
                     name="description"
                     value={newTransaction.description}
                     onChange={handleInputChange}
-                    placeholder="Description"
+                    placeholder="Descripción"
                   />
                 </TableCell>
                 <TableCell>
@@ -241,7 +243,7 @@ export default function Cashier() {
                     name="category"
                     value={newTransaction.category}
                     onChange={handleInputChange}
-                    placeholder="Category"
+                    placeholder="Categoría"
                   />
                 </TableCell>
                 <TableCell>
@@ -255,11 +257,11 @@ export default function Cashier() {
                     }
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Theme" />
+                      <SelectValue placeholder="Tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="income">Income</SelectItem>
-                      <SelectItem value="expense">Expense</SelectItem>
+                      <SelectItem value="income">Ingreso</SelectItem>
+                      <SelectItem value="expense">Gasto</SelectItem>
                     </SelectContent>
                   </Select>
                 </TableCell>
@@ -270,7 +272,7 @@ export default function Cashier() {
                     type="number"
                     value={newTransaction.amount}
                     onChange={handleInputChange}
-                    placeholder="Amount"
+                    placeholder="Monto"
                   />
                 </TableCell>
                 <TableCell>
@@ -284,16 +286,16 @@ export default function Cashier() {
                     }
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Status" />
+                      <SelectValue placeholder="Estado" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="completed">Completed</SelectItem>
-                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="completed">Completado</SelectItem>
+                      <SelectItem value="pending">Pendiente</SelectItem>
                     </SelectContent>
                   </Select>
                 </TableCell>
                 <TableCell>
-                  <Button onClick={handleAddTransaction}>Add</Button>
+                  <Button onClick={handleAddTransaction}>Agregar</Button>
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -307,10 +309,9 @@ export default function Cashier() {
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogTitle>Confirmar eliminación</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete this transaction? This action
-              cannot be undone.
+              ¿Seguro que deseas eliminar esta transacción? Esta acción no se puede deshacer.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -318,10 +319,10 @@ export default function Cashier() {
               variant="outline"
               onClick={() => setIsDeleteConfirmationOpen(false)}
             >
-              Cancel
+              Cancelar
             </Button>
             <Button variant="destructive" onClick={handleDeleteTransaction}>
-              Delete
+              Eliminar
             </Button>
           </DialogFooter>
         </DialogContent>

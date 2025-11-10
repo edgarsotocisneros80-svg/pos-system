@@ -17,20 +17,20 @@ export default function LoginPage() {
       <div className="mx-auto w-full max-w-md space-y-6">
         <div className="flex flex-col items-center space-y-2">
           <MountainIcon className="h-10 w-10" />
-          <h2 className="text-2xl font-bold">Welcome back</h2>
+          <h2 className="text-2xl font-bold">Bienvenido de nuevo</h2>
           <p className="text-muted-foreground">
-            Enter your email and password to sign in.
+            Ingresa tu correo y contraseña para iniciar sesión.
           </p>
         </div>
         <Card>
           <form>
             <CardContent className="space-y-4 mt-4">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" name="email"  type="email" placeholder="name@example.com" />
+                <Label htmlFor="email">Correo electrónico</Label>
+                <Input id="email" name="email"  type="email" placeholder="nombre@ejemplo.com" />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Contraseña</Label>
                 <Input id="password" name="password"  type="password" />
               </div>
             </CardContent>
@@ -40,10 +40,10 @@ export default function LoginPage() {
                 className="text-sm text-muted-foreground"
                 prefetch={false}
               >
-                Forgot password?
+                ¿Olvidaste tu contraseña?
               </Link>
-              <Button formAction={login}>Log in</Button>
-              <Button formAction={signup}>Sign up</Button>
+              <Button formAction={login}>Iniciar sesión</Button>
+              <Button formAction={signup}>Registrarse</Button>
             </CardFooter>
           </form>
         </Card>

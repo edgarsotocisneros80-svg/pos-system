@@ -234,7 +234,7 @@ export default function OrdersPage() {
             <div className="relative">
               <Input
                 type="text"
-                placeholder="Search orders..."
+                placeholder="Buscar pedidos..."
                 value={searchTerm}
                 onChange={handleSearch}
                 className="pr-8"
@@ -245,42 +245,42 @@ export default function OrdersPage() {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="gap-1">
                   <FilterIcon className="w-4 h-4" />
-                  <span>Filters</span>
+                  <span>Filtros</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuLabel>Filter by Status</DropdownMenuLabel>
+                <DropdownMenuLabel>Filtrar por estado</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuCheckboxItem
                   checked={filters.status === "all"}
                   onCheckedChange={() => handleFilterChange("all")}
                 >
-                  All Statuses
+                  Todos los estados
                 </DropdownMenuCheckboxItem>
                 <DropdownMenuCheckboxItem
                   checked={filters.status === "completed"}
                   onCheckedChange={() => handleFilterChange("completed")}
                 >
-                  Completed
+                  Completado
                 </DropdownMenuCheckboxItem>
                 <DropdownMenuCheckboxItem
                   checked={filters.status === "pending"}
                   onCheckedChange={() => handleFilterChange("pending")}
                 >
-                  Pending
+                  Pendiente
                 </DropdownMenuCheckboxItem>
                 <DropdownMenuCheckboxItem
                   checked={filters.status === "cancelled"}
                   onCheckedChange={() => handleFilterChange("cancelled")}
                 >
-                  Cancelled
+                  Cancelado
                 </DropdownMenuCheckboxItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
           <Button size="sm" onClick={() => setShowNewOrderDialog(true)}>
             <PlusCircle className="w-4 h-4 mr-2" />
-            Create Order
+            Crear pedido
           </Button>
         </div>
       </CardHeader>
@@ -289,12 +289,12 @@ export default function OrdersPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Order ID</TableHead>
-                <TableHead>Customer</TableHead>
+                <TableHead>ID del pedido</TableHead>
+                <TableHead>Cliente</TableHead>
                 <TableHead>Total</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>Estado</TableHead>
+                <TableHead>Fecha</TableHead>
+                <TableHead>Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -303,7 +303,7 @@ export default function OrdersPage() {
                   <TableCell>{order.id}</TableCell>
                   <TableCell>{order.customer.name}</TableCell>
                   <TableCell>${order.total_amount.toFixed(2)}</TableCell>
-                  <TableCell>{order.status}</TableCell>
+                  <TableCell>{order.status === "completed" ? "Completado" : order.status === "pending" ? "Pendiente" : "Cancelado"}</TableCell>
                   <TableCell>{order.created_at}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
@@ -319,7 +319,7 @@ export default function OrdersPage() {
                         }}
                       >
                         <FilePenIcon className="w-4 h-4" />
-                        <span className="sr-only">Edit</span>
+                        <span className="sr-only">Editar</span>
                       </Button>
                       <Button
                         size="icon"
@@ -330,12 +330,12 @@ export default function OrdersPage() {
                         }}
                       >
                         <Trash2 className="w-4 h-4" />
-                        <span className="sr-only">Delete</span>
+                        <span className="sr-only">Eliminar</span>
                       </Button>
                       <Link href={`/admin/orders/${order.id}`} prefetch={false}>
                         <Button size="icon" variant="ghost">
                           <EyeIcon className="w-4 h-4" />
-                          <span className="sr-only">View</span>
+                          <span className="sr-only">Ver</span>
                         </Button>
                       </Link>
                     </div>
@@ -363,12 +363,12 @@ export default function OrdersPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {showNewOrderDialog ? "Create New Order" : "Edit Order"}
+              {showNewOrderDialog ? "Crear pedido" : "Editar pedido"}
             </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="customerName">Customer Name</Label>
+              <Label htmlFor="customerName">Nombre del cliente</Label>
               <Input
                 id="customerName"
                 value={newOrderCustomerName}
@@ -387,7 +387,7 @@ export default function OrdersPage() {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="status">Status</Label>
+              <Label htmlFor="status">Estado</Label>
               <Select
                 value={newOrderStatus}
                 onValueChange={(value: "completed" | "pending" | "cancelled") =>
@@ -395,12 +395,12 @@ export default function OrdersPage() {
                 }
               >
                 <SelectTrigger id="status" className="col-span-3">
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder="Selecciona estado" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="completed">Completed</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="cancelled">Cancelled</SelectItem>
+                  <SelectItem value="completed">Completado</SelectItem>
+                  <SelectItem value="pending">Pendiente</SelectItem>
+                  <SelectItem value="cancelled">Cancelado</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -414,10 +414,10 @@ export default function OrdersPage() {
                 resetSelectedOrder();
               }}
             >
-              Cancel
+              Cancelar
             </Button>
             <Button onClick={showNewOrderDialog ? handleAddOrder : handleEditOrder}>
-              {showNewOrderDialog ? "Create Order" : "Update Order"}
+              {showNewOrderDialog ? "Crear pedido" : "Actualizar pedido"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -429,18 +429,18 @@ export default function OrdersPage() {
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogTitle>Confirmar eliminación</DialogTitle>
           </DialogHeader>
-          Are you sure you want to delete this order? This action cannot be undone.
+          ¿Seguro que deseas eliminar este pedido? Esta acción no se puede deshacer.
           <DialogFooter>
             <Button
               variant="secondary"
               onClick={() => setIsDeleteConfirmationOpen(false)}
             >
-              Cancel
+              Cancelar
             </Button>
             <Button variant="destructive" onClick={handleDeleteOrder}>
-              Delete
+              Eliminar
             </Button>
           </DialogFooter>
         </DialogContent>

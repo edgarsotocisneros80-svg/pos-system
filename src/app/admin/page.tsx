@@ -95,7 +95,7 @@ export default function Page() {
       <div className="grid auto-rows-max items-start gap-4 lg:grid-cols-2 xl:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">Ingresos totales</CardTitle>
             <DollarSignIcon className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -105,7 +105,7 @@ export default function Page() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
-              Total Expenses
+              Gastos totales
             </CardTitle>
             <DollarSignIcon className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
@@ -115,7 +115,7 @@ export default function Page() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Profit (selling)</CardTitle>
+            <CardTitle className="text-sm font-medium">Ganancia total (ventas)</CardTitle>
             <DollarSignIcon className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -127,7 +127,7 @@ export default function Page() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
-              Revenue by Category
+              Ingresos por categoría
             </CardTitle>
             <PieChartIcon className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
@@ -138,7 +138,7 @@ export default function Page() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
-              Expenses by Category
+              Gastos por categoría
             </CardTitle>
             <PieChartIcon className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
@@ -148,7 +148,7 @@ export default function Page() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Profit Margin (selling)</CardTitle>
+            <CardTitle className="text-sm font-medium">Margen de ganancia (ventas)</CardTitle>
             <BarChartIcon className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -157,7 +157,7 @@ export default function Page() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Cash Flow</CardTitle>
+            <CardTitle className="text-sm font-medium">Flujo de caja</CardTitle>
             <DollarSignIcon className="w-4 h-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -193,7 +193,7 @@ function BarChartIcon(props: any) {
 function BarchartChart({ data, ...props }: { data: any[] } & React.HTMLAttributes<HTMLDivElement>) {
   const chartConfig = {
     margin: {
-      label: "Margin",
+      label: "Margen",
       color: "hsl(var(--chart-1))",
     },
   } satisfies ChartConfig;
@@ -246,7 +246,7 @@ function LinechartChart({ data, ...props }: { data: any[] } & React.HTMLAttribut
       <ChartContainer
         config={{
           amount: {
-            label: "Amount",
+            label: "Monto",
             color: "hsl(var(--chart-1))",
           },
         }}

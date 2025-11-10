@@ -243,7 +243,7 @@ export default function CustomersPage() {
   if (error) {
     return (
       <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">Customers</h1>
+        <h1 className="text-2xl font-bold mb-4">Clientes</h1>
         <Card>
           <CardContent>
             <p className="text-red-500">{error}</p>
@@ -261,7 +261,7 @@ export default function CustomersPage() {
             <div className="relative">
               <Input
                 type="text"
-                placeholder="Search customers..."
+                placeholder="Buscar clientes..."
                 value={searchTerm}
                 onChange={handleSearch}
                 className="pr-8"
@@ -272,36 +272,36 @@ export default function CustomersPage() {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="gap-1">
                   <FilterIcon className="w-4 h-4" />
-                  <span>Filters</span>
+                  <span>Filtros</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuLabel>Filter by Status</DropdownMenuLabel>
+                <DropdownMenuLabel>Filtrar por estado</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuCheckboxItem
                   checked={filters.status === "all"}
                   onCheckedChange={() => handleFilterChange("all")}
                 >
-                  All Statuses
+                  Todos los estados
                 </DropdownMenuCheckboxItem>
                 <DropdownMenuCheckboxItem
                   checked={filters.status === "active"}
                   onCheckedChange={() => handleFilterChange("active")}
                 >
-                  Active
+                  Activo
                 </DropdownMenuCheckboxItem>
                 <DropdownMenuCheckboxItem
                   checked={filters.status === "inactive"}
                   onCheckedChange={() => handleFilterChange("inactive")}
                 >
-                  Inactive
+                  Inactivo
                 </DropdownMenuCheckboxItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
           <Button size="sm" onClick={() => setShowNewCustomerDialog(true)}>
             <PlusCircle className="w-4 h-4 mr-2" />
-            Add Customer
+            Agregar cliente
           </Button>
         </div>
       </CardHeader>
@@ -310,11 +310,11 @@ export default function CustomersPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>Nombre</TableHead>
+                <TableHead>Correo electrónico</TableHead>
+                <TableHead>Teléfono</TableHead>
+                <TableHead>Estado</TableHead>
+                <TableHead>Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -323,7 +323,7 @@ export default function CustomersPage() {
                   <TableCell>{customer.name}</TableCell>
                   <TableCell>{customer.email}</TableCell>
                   <TableCell>{customer.phone}</TableCell>
-                  <TableCell>{customer.status}</TableCell>
+                  <TableCell>{customer.status === "active" ? "Activo" : "Inactivo"}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Button
@@ -339,7 +339,7 @@ export default function CustomersPage() {
                         }}
                       >
                         <FilePenIcon className="w-4 h-4" />
-                        <span className="sr-only">Edit</span>
+                        <span className="sr-only">Editar</span>
                       </Button>
                       <Button
                         size="icon"
@@ -350,7 +350,7 @@ export default function CustomersPage() {
                         }}
                       >
                         <Trash2 className="w-4 h-4" />
-                        <span className="sr-only">Delete</span>
+                        <span className="sr-only">Eliminar</span>
                       </Button>
                     </div>
                   </TableCell>
@@ -377,12 +377,12 @@ export default function CustomersPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              {showNewCustomerDialog ? "Create New Customer" : "Edit Customer"}
+              {showNewCustomerDialog ? "Crear cliente" : "Editar cliente"}
             </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">Nombre</Label>
               <Input
                 id="name"
                 value={newCustomerName}
@@ -391,7 +391,7 @@ export default function CustomersPage() {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Correo electrónico</Label>
               <Input
                 id="email"
                 value={newCustomerEmail}
@@ -400,7 +400,7 @@ export default function CustomersPage() {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone">Teléfono</Label>
               <Input
                 id="phone"
                 value={newCustomerPhone}
@@ -409,7 +409,7 @@ export default function CustomersPage() {
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="status">Status</Label>
+              <Label htmlFor="status">Estado</Label>
               <Select
                 value={newCustomerStatus}
                 onValueChange={(value: "active" | "inactive") =>
@@ -417,11 +417,11 @@ export default function CustomersPage() {
                 }
               >
                 <SelectTrigger id="status" className="col-span-3">
-                  <SelectValue placeholder="Select status" />
+                  <SelectValue placeholder="Selecciona estado" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="inactive">Inactive</SelectItem>
+                  <SelectItem value="active">Activo</SelectItem>
+                  <SelectItem value="inactive">Inactivo</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -435,14 +435,14 @@ export default function CustomersPage() {
                 resetSelectedCustomer();
               }}
             >
-              Cancel
+              Cancelar
             </Button>
             <Button
               onClick={
                 showNewCustomerDialog ? handleAddCustomer : handleEditCustomer
               }
             >
-              {showNewCustomerDialog ? "Create Customer" : "Update Customer"}
+              {showNewCustomerDialog ? "Crear cliente" : "Actualizar cliente"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -454,19 +454,18 @@ export default function CustomersPage() {
       >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Confirm Deletion</DialogTitle>
+            <DialogTitle>Confirmar eliminación</DialogTitle>
           </DialogHeader>
-          Are you sure you want to delete this customer? This action cannot be
-          undone.
+          ¿Seguro que deseas eliminar este cliente? Esta acción no se puede deshacer.
           <DialogFooter>
             <Button
               variant="secondary"
               onClick={() => setIsDeleteConfirmationOpen(false)}
             >
-              Cancel
+              Cancelar
             </Button>
             <Button variant="destructive" onClick={handleDeleteCustomer}>
-              Delete
+              Eliminar
             </Button>
           </DialogFooter>
         </DialogContent>

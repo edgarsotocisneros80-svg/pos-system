@@ -1,48 +1,31 @@
-import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
-export async function GET(request: Request) {
-  const supabase = createClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-  
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+export async function GET() {
+  try {
+    const customers = await prisma.customer.findMany({
+      select: { id: true, name: true, email: true, phone: true, status: true },
+      orderBy: { id: 'asc' },
+    })
+    return NextResponse.json(customers)
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to fetch customers' }, { status: 500 })
   }
-
-  const { data, error } = await supabase
-    .from('customers')
-    .select('id, name')
-    .eq('user_uid', user.id)
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
-
-  return NextResponse.json(data)
 }
 
 export async function POST(request: Request) {
-  const supabase = createClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-  
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  try {
+    const body = await request.json()
+    const created = await prisma.customer.create({
+      data: {
+        name: body.name,
+        email: body.email,
+        phone: body.phone ?? null,
+        status: body.status ?? 'active',
+      },
+    })
+    return NextResponse.json(created)
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to create customer' }, { status: 500 })
   }
-
-  const newCustomer = await request.json();
-
-  const { data, error } = await supabase
-    .from('customers')
-    .insert([
-      { ...newCustomer, user_uid: user.id }
-    ])
-    .select()
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-  }
-
-  return NextResponse.json(data[0])
 }

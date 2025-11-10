@@ -1,39 +1,20 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { prisma } from '@/lib/prisma';
 
-export async function GET(request: Request) {
-  const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  const { data: expensesData, error: expensesError } = await supabase
-    .from('transactions')
-    .select('amount, category, status, user_uid')
-    .eq('status', 'completed')
-    .eq('type', 'expense')
-    .eq('user_uid', user.id);
-
-  if (expensesError) {
-    console.error('Error fetching expenses by category:', expensesError);
+export async function GET() {
+  try {
+    const txs = await prisma.transaction.findMany({
+      where: { status: 'completed', type: 'expense' },
+      select: { amount: true, category: true },
+    });
+    const expensesByCategory = txs.reduce((acc: Record<string, number>, t: any) => {
+      if (!t.category) return acc;
+      const amt = Number(t.amount);
+      acc[t.category] = (acc[t.category] || 0) + amt;
+      return acc;
+    }, {});
+    return NextResponse.json({ expensesByCategory });
+  } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch expenses by category' }, { status: 500 });
   }
-
-  const expensesByCategory = expensesData?.reduce((acc, item) => {
-    const category = item.category; // Acessando a categoria do primeiro produto
-    if (!category) {
-      return acc; // Se a categoria não existir, continuar para o último item
-    }
-    const expenses = item.amount;
-    if (acc[category]) {
-      acc[category] += expenses;
-    } else {
-      acc[category] = expenses;
-    }
-    return acc;
-  }, {} as Record<string, number>);
-
-  return NextResponse.json({ expensesByCategory });
 }
