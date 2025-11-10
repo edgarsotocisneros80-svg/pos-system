@@ -13,6 +13,7 @@ import {
 import { Combobox } from "@/components/ui/combobox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { InfoBanner } from "@/components/info-banner";
 
 type Product = {
   id: number;
@@ -341,6 +342,20 @@ export default function POSPage() {
 
   return (
     <div className="container mx-auto p-4">
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo usar el Punto de Venta?"
+          items={[
+            "Escanee el código de barras o seleccione el producto en la lista.",
+            "Ajuste cantidades respetando el stock disponible.",
+            "(Opcional) Seleccione un cliente y el método de pago.",
+            "Ingrese el efectivo recibido para calcular el cambio.",
+            "Presione 'Cobrar' para registrar la venta y descontar inventario.",
+            "Si no hay stock suficiente, el sistema bloqueará la operación."
+          ]}
+          storageKey="help-pos"
+        />
+      </div>
       {toast && (
         <div className={`fixed top-4 right-4 z-50 px-3 py-2 rounded text-white ${toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
           {toast.message}

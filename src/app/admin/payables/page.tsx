@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { CreditCardIcon, Loader2Icon } from "lucide-react";
+import { InfoBanner } from "@/components/info-banner";
 
 interface PaymentMethod {
   id: number;
@@ -173,6 +174,19 @@ export default function PayablesPage() {
 
   return (
     <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo gestionar Cuentas por Pagar?"
+          items={[
+            "Consulta las cuentas por pagar generadas por compras a crédito.",
+            "Cada registro muestra proveedor, monto, saldo, estado y vencimiento.",
+            "Usa el botón 'Pagar' para registrar un pago parcial o total.",
+            "El sistema valida que el monto no exceda el saldo pendiente.",
+            "Los pagos registrados actualizan el saldo y el historial de pagos."
+          ]}
+          storageKey="help-payables"
+        />
+      </div>
       {toast && (
         <div className={`fixed top-4 right-4 z-50 px-4 py-2 rounded text-white ${toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
           {toast.message}

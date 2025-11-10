@@ -45,6 +45,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { InfoBanner } from "@/components/info-banner";
 import {
   Select,
   SelectContent,
@@ -319,6 +320,20 @@ export default function Products() {
 
   return (
     <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo gestionar Productos?"
+          items={[
+            "Busca por nombre o código de barras.",
+            "Filtra por categoría y estado de stock.",
+            "Agrega productos con precio, stock y categoría.",
+            "Edita o elimina productos existentes.",
+            "Puedes seleccionar una categoría o crear una nueva.",
+            "El código de barras debe ser único."
+          ]}
+          storageKey="help-products"
+        />
+      </div>
       {toast && (
         <div className={`fixed top-4 right-4 z-50 px-3 py-2 rounded text-white ${toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
           {toast.message}

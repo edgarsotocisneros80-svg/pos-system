@@ -41,6 +41,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { InfoBanner } from "@/components/info-banner";
 
 type TransactionType = "income" | "expense";
 
@@ -155,6 +156,18 @@ export default function Cashier() {
 
   return (
     <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo usar Caja?"
+          items={[
+            "Consulta y gestiona transacciones de caja (ingresos/gastos).",
+            "Agrega nuevas transacciones con descripción, categoría, tipo y monto.",
+            "Edita o elimina transacciones según sea necesario.",
+            "El flujo de caja se refleja en los reportes del panel."
+          ]}
+          storageKey="help-cashier"
+        />
+      </div>
       <Card className="w-full">
         <CardHeader>
           <CardTitle>Transacciones de caja</CardTitle>

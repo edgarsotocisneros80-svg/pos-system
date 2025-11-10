@@ -25,6 +25,7 @@ import {
   Line,
   LineChart,
 } from "recharts";
+import { InfoBanner } from "@/components/info-banner";
 
 export default function Page() {
   const [totalRevenue, setTotalRevenue] = useState(0);
@@ -92,6 +93,19 @@ export default function Page() {
 
   return (
     <div className="grid flex-1 items-start gap-4">
+      <div className="mb-2">
+        <InfoBanner
+          title="¿Cómo interpretar el Panel?"
+          items={[
+            "Ingresos/Gastos/Ganancia: totales agregados del período.",
+            "Ingresos y Gastos por categoría: distribución visual de montos.",
+            "Margen de ganancia (ventas): evolución del margen por fecha.",
+            "Flujo de caja: tendencia de entradas y salidas en el tiempo.",
+            "Si ves valores vacíos, verifica que existan datos o que la base de datos esté configurada."
+          ]}
+          storageKey="help-dashboard"
+        />
+      </div>
       <div className="grid auto-rows-max items-start gap-4 lg:grid-cols-2 xl:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">

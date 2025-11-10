@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { SearchIcon, Loader2Icon, DownloadIcon, FilterIcon } from "lucide-react";
+import { InfoBanner } from "@/components/info-banner";
 
 interface Product {
   id: number;
@@ -157,6 +158,19 @@ export default function KardexPage() {
 
   return (
     <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo usar el Kardex?"
+          items={[
+            "Filtra por producto, rango de fechas y tipo de movimiento.",
+            "Haz clic en 'Buscar' para cargar los movimientos.",
+            "Usa 'Exportar CSV' para descargar el reporte.",
+            "Los tipos incluyen Venta, Compra y Ajuste.",
+            "Se muestra cantidad, costo unitario y referencia (pedido/compra/ajuste)."
+          ]}
+          storageKey="help-kardex"
+        />
+      </div>
       {toast && (
         <div className={`fixed top-4 right-4 z-50 px-4 py-2 rounded text-white ${toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
           {toast.message}

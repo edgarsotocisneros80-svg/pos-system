@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PlusIcon, EditIcon, Loader2Icon } from "lucide-react";
+import { InfoBanner } from "@/components/info-banner";
 
 interface Supplier {
   id: number;
@@ -125,6 +126,19 @@ export default function SuppliersPage() {
 
   return (
     <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo gestionar Proveedores?"
+          items={[
+            "Consulta el listado de proveedores con su información de contacto.",
+            "Crea un proveedor nuevo con nombre, email, teléfono, dirección y RFC/ID.",
+            "Edita un proveedor existente seleccionándolo en la tabla.",
+            "Usa el campo 'Estado' para activar/inactivar proveedores.",
+            "Estos datos se usan en Compras y Cuentas por Pagar."
+          ]}
+          storageKey="help-suppliers"
+        />
+      </div>
       {toast && (
         <div className={`fixed top-4 right-4 z-50 px-4 py-2 rounded text-white ${toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
           {toast.message}

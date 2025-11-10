@@ -50,6 +50,7 @@ import {
   DropdownMenuCheckboxItem,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { InfoBanner } from "@/components/info-banner";
 
 type Order = {
   id: number;
@@ -227,7 +228,21 @@ export default function OrdersPage() {
   }
 
   return (
-    <Card className="flex flex-col gap-6 p-6">
+    <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo gestionar Pedidos?"
+          items={[
+            "Consulta el historial de pedidos realizados.",
+            "Filtra y busca por cliente o por ID de pedido.",
+            "Crea, edita o elimina pedidos desde esta sección.",
+            "Cada pedido muestra total, estado y fecha.",
+            "Usa el botón 'Ver' para consultar el detalle del pedido."
+          ]}
+          storageKey="help-orders"
+        />
+      </div>
+      <Card className="flex flex-col gap-6 p-6">
       <CardHeader className="p-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -446,5 +461,6 @@ export default function OrdersPage() {
         </DialogContent>
       </Dialog>
     </Card>
+    </>
   );
 }

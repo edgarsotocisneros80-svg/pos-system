@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PlusIcon, TrashIcon, Loader2Icon } from "lucide-react";
+import { InfoBanner } from "@/components/info-banner";
 
 interface Product {
   id: number;
@@ -164,6 +165,19 @@ export default function AdjustmentsPage() {
 
   return (
     <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo realizar Ajustes de Inventario?"
+          items={[
+            "Consulta el historial de ajustes realizados.",
+            "Crea un nuevo ajuste indicando una razón opcional.",
+            "Agrega items: selecciona producto y especifica cantidad (positiva o negativa).",
+            "Las cantidades positivas suman stock, las negativas restan stock.",
+            "Al guardar, se registrará el movimiento en el Kardex y se actualizará el inventario."
+          ]}
+          storageKey="help-adjustments"
+        />
+      </div>
       {toast && (
         <div className={`fixed top-4 right-4 z-50 px-4 py-2 rounded text-white ${toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
           {toast.message}

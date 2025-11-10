@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { PlusIcon, TrashIcon, Loader2Icon } from "lucide-react";
+import { InfoBanner } from "@/components/info-banner";
 
 interface Supplier {
   id: number;
@@ -186,6 +187,19 @@ export default function PurchasesPage() {
 
   return (
     <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo registrar Compras?"
+          items={[
+            "Consulta el historial de compras registradas.",
+            "Crea una compra seleccionando proveedor e items con cantidad y precio.",
+            "Elige 'Contado' o 'Crédito': Contado solicita método de pago; Crédito solicita fecha de vencimiento.",
+            "Al guardar, el inventario se incrementa y, si es crédito, se crea la cuenta por pagar.",
+            "Usa 'Agregar Item' para añadir varios productos a la compra."
+          ]}
+          storageKey="help-purchases"
+        />
+      </div>
       {toast && (
         <div className={`fixed top-4 right-4 z-50 px-4 py-2 rounded text-white ${toast.type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
           {toast.message}

@@ -17,6 +17,7 @@ import {
   TrendingDownIcon,
   PackageIcon
 } from "lucide-react";
+import { InfoBanner } from "@/components/info-banner";
 
 interface Product {
   id: number;
@@ -155,6 +156,19 @@ export default function ReportsPage() {
 
   return (
     <div className="space-y-6">
+      <div>
+        <InfoBanner
+          title="¿Cómo usar los Reportes?"
+          items={[
+            "Resumen: productos totales, stock total, stock bajo y valor de inventario.",
+            "Existencias: ajusta el umbral de stock bajo y exporta a CSV.",
+            "Movimientos: filtra por fecha para ver ventas, compras y ajustes recientes.",
+            "CxP próximas a vencer: ajusta días y consulta los vencimientos.",
+            "Usa los botones de 'Actualizar' y 'Filtrar' según el reporte."
+          ]}
+          storageKey="help-reports"
+        />
+      </div>
       {/* Dashboard Summary */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>

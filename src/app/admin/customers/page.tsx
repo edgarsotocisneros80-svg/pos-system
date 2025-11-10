@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Card,
@@ -50,6 +48,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuCheckboxItem,
 } from "@/components/ui/dropdown-menu";
+import { InfoBanner } from "@/components/info-banner";
 
 type Customer = {
   id: number;
@@ -254,7 +253,20 @@ export default function CustomersPage() {
   }
 
   return (
-    <Card className="flex flex-col gap-6 p-6">
+    <>
+      <div className="mb-4">
+        <InfoBanner
+          title="¿Cómo gestionar Clientes?"
+          items={[
+            "Busca y filtra clientes por estado (activo/inactivo).",
+            "Crea clientes con nombre, correo y teléfono.",
+            "Edita o elimina clientes desde la tabla.",
+            "Los clientes se pueden usar en el POS para asociar ventas."
+          ]}
+          storageKey="help-customers"
+        />
+      </div>
+      <Card className="flex flex-col gap-6 p-6">
       <CardHeader className="p-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -470,6 +482,7 @@ export default function CustomersPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </Card>
+      </Card>
+    </>
   );
 }
